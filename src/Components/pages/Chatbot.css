@@ -1,0 +1,11 @@
+.react-chatbot-kit-chat-message-container{
+    overflow: hidden;
+}
+.react-chatbot-kit-chat-input{
+    border-top: none;
+    background-color: aliceblue;
+}
+.react-chatbot-kit-chat-container{
+
+    box-shadow: 5px 7px 15px 0px rgba(0,0,0,0.75);
+}
