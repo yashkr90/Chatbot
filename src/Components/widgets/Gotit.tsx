@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/esm/Button';
-import { createChatBotMessage, createClientMessage } from "react-chatbot-kit";
+import {  createClientMessage } from "react-chatbot-kit";
 
-const Gotit = (props) => {
+
+
+const Gotit = (props:any) => {
     // console.log(props);
-    const [hidden,setHidden]= useState(false)
+    const [hidden,setHidden]= useState<boolean>(false)
 
     const handleClick=()=>{
-            const userMessage =createClientMessage("Got it!");
-            props.setState((prev) => ({
+            const userMessage: {
+              message: string;
+              type: string;
+              id: number;
+          } =createClientMessage("Got it!",{});
+            props.setState((prev: { messages: string }) => ({
               ...prev,
               messages: [...prev.messages, userMessage],
             }));

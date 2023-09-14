@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from "react";
-import Form from "react-bootstrap/Form";
-import { createChatBotMessage, createClientMessage } from "react-chatbot-kit";
-import { useDispatch, useSelector } from "react-redux";
-import { setUserAge } from "../../store/reducer/userInfo";
 
-const AgeSelect = (props) => {
+import { createClientMessage } from "react-chatbot-kit";
+
+import { useDispatch } from "react-redux";
+import { setUserAge } from "../../store/reducer/userInfo.ts";
+
+// interface AgeSelectProps {
+//   setState: React.Dispatch<React.SetStateAction<any>>; // Define the type for setState
+//   actions: {
+//     handleAgeInput: () => void;
+//   };
+// }
+
+const AgeSelect = (props: any) => {
   const [selectedAge, setSelectedAge] = useState(""); // Initialize with an empty string
   const [hidden, setHidden] = useState(false);
   const dispatch = useDispatch();
 
-  const handleAgeChange = (event) => {
+  const handleAgeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const age = event.target.value; // Get the selected age from the dropdown
     setSelectedAge(age); // Update the state with the selected age
   };
@@ -17,13 +25,17 @@ const AgeSelect = (props) => {
   useEffect(() => {
     if (selectedAge !== "") {
       console.log("seleclted age", selectedAge);
-      const userMessage = createClientMessage(`${selectedAge}`);
-      props.setState((prev) => ({
+      const userMessage: {
+        message: string;
+        type: string;
+        id: number;
+      } = createClientMessage(`${selectedAge}`, {});
+      props.setState((prev: any) => ({
         ...prev,
         messages: [...prev.messages, userMessage],
       }));
 
-      // dipatch age 
+      // dipatch age
       dispatch(setUserAge(selectedAge));
 
       props.actions.handleAgeInput();
@@ -31,8 +43,7 @@ const AgeSelect = (props) => {
     }
   }, [selectedAge]);
 
-
-  // return dropdown for age 
+  // return dropdown for age
   return (
     <>
       {hidden === false ? (

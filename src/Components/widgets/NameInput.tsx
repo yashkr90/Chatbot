@@ -2,24 +2,28 @@
 
 import React, { useState } from "react";
 import Button from "react-bootstrap/esm/Button";
-import { createChatBotMessage, createClientMessage } from "react-chatbot-kit";
-import {useDispatch, useSelector} from 'react-redux';
+import {  createClientMessage } from "react-chatbot-kit";
+import {useDispatch} from 'react-redux';
 import { setUserName } from "../../store/reducer/userInfo";
 
-const NameInput = (props) => {
-  const [name, setName] = useState(""); //state to store user name
-  const [hidden, setHidden] = useState(false); // state to hide nameInput
+const NameInput = (props:any) => {
+  const [name, setName] = useState<string>(""); //state to store user name
+  const [hidden, setHidden] = useState<boolean>(false); // state to hide nameInput
   const dispatch = useDispatch();
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
     setName(event.target.value);
   };
 
   const handleSubmit = () => {
     if (name.trim() !== "") {
       console.log(name);
-      const userMessage = createClientMessage(`${name}`);
-      props.setState((prev) => ({
+      const userMessage: {
+        message: string;
+        type: string;
+        id: number;
+    } = createClientMessage(`${name}`,{});
+      props.setState((prev: { messages: string }) => ({
         ...prev,
         messages: [...prev.messages, userMessage],
       }));
@@ -32,7 +36,7 @@ const NameInput = (props) => {
       //   onNameSubmit(name);
     }
   };
-  const handleKeyPress = (event) => {
+  const handleKeyPress = (event: { key: string; }) => {
     if (event.key === "Enter") {
       handleSubmit();
     }

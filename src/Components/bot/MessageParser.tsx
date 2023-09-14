@@ -1,8 +1,19 @@
 import React from "react";
-import { useEffect } from "react";
 
-const MessageParser = ({ children, actions }) => {
-  const parse = (message) => {
+
+interface MessageParserProps {
+  children: React.ReactNode;
+  actions: {
+    handleGotIt: () => void; 
+    handleSlotPicking: () => void; 
+    handleNameInput: () => void; 
+    handleAgeInput: () => void; 
+    
+  };
+}
+
+const MessageParser: React.FC<MessageParserProps>  = ({ children, actions }) => {
+  const parse = (message:string) => {
     if (message.includes("Got it!")) {
       actions.handleGotIt();
     } else if (message.includes("Pick a slot !")) {
@@ -16,7 +27,7 @@ const MessageParser = ({ children, actions }) => {
 
   return (
     <div>
-      {React.Children.map(children, (child) => {
+      {React.Children.map(children, (child:any) => {
         return React.cloneElement(child, {
           parse: parse,
           actions,

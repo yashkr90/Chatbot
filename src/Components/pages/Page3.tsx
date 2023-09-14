@@ -1,10 +1,10 @@
-import React from "react";
+
 import { useSelector } from "react-redux";
 
 const Page3 = () => {
 
 
-  function capitalizeWords(sentence) {
+  function capitalizeWords(sentence:string) {
     const words = sentence.split(" ");
 
     const capitalizedWords = words.map((word) => {
@@ -20,7 +20,7 @@ const Page3 = () => {
     return capitalizedSentence;
   }
 
-  const reduxData = useSelector((state) => state.user);
+  const reduxData = useSelector((state:any) => state.user);
   console.log("reduxData: ", reduxData);
   const username=capitalizeWords(reduxData.username);
   return (

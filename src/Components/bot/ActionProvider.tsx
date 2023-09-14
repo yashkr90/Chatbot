@@ -5,13 +5,17 @@ import { useEffect,useState } from 'react';
 import { createChatBotMessage } from 'react-chatbot-kit';
 // import TimeSlot from '../TimeSlot';
 
+interface ActionProviderProps {
+  createChatBotMessage: (message: string, options?: any) => any;
+  setState: (prevState: any) => void; // Replace 'any' with the actual state type if known
+  children: React.ReactNode;
+}
 
-
-const ActionProvider = ({ createChatBotMessage, setState, children }) => {
+const ActionProvider: React.FC<ActionProviderProps> = ({ createChatBotMessage, setState, children }) => {
   
 
 
-    const [countdown, setCountdown] = useState(5);
+  
     const navigate=useNavigate();
 
   //handle gotit When user click on Got It! button and displayes picka slot
@@ -42,7 +46,7 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
   
     //handle Age when user selects age from dropdown , then displays Bot will exit ,along with timer
     const handleAgeInput = () => {
-      setCountdown(5);
+      
       
       const botMessages = [
         createChatBotMessage(`Thank you. In 5 seconds, bot will exit`, {
@@ -63,8 +67,8 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
   
 
   // update the State of chatbot message after every function
-    const updateChatbotState = (messages) => {
-      setState((prevState) => ({
+    const updateChatbotState = (messages:any) => {
+      setState((prevState:any) => ({
         ...prevState,
         messages: [...prevState.messages, ...messages],
       }));
@@ -74,7 +78,7 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
   
     return (
       <div>
-        {React.Children.map(children, (child) => {
+        {React.Children.map(children, (child:any) => {
           return React.cloneElement(child, {
             actions: {
               handleAgeInput,

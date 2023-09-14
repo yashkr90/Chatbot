@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
-const ThankYou = ({ onFinish }) => {
-  const [countdown, setCountdown] = useState(5);
+const ThankYou = (props:any) => {
+  const [countdown, setCountdown] = useState<number>(5);
 
   useEffect(() => {
     const timer = setInterval(() => {
       if (countdown === 0) {
         clearInterval(timer); // Stop the timer when countdown reaches zero
-        onFinish(); // Trigger the onFinish callback to transition to page 3
+        // onFinish(); // Trigger the onFinish callback to transition to page 3
       } else {
         setCountdown((prevCountdown) => prevCountdown - 1); // Decrement the countdown
       }
@@ -16,7 +16,7 @@ const ThankYou = ({ onFinish }) => {
     return () => {
       clearInterval(timer); // Cleanup the timer when the component unmounts
     };
-  }, [countdown, onFinish]);
+  }, [countdown]);
 
   return (
     <div className='d-flex align-items-center justify-content-center'>

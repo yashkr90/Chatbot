@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { setUserTime } from "../../store/reducer/userInfo";
 
 const today = new Date();
-const options = { weekday: "short", month: "short", day: "numeric" };
+const options: Intl.DateTimeFormatOptions = { weekday: "short", month: "short", day: "numeric" };
 // const todayDate = today.toLocaleDateString(undefined, options).toUpperCase();
 
 // Calculate the end of the current month
@@ -18,7 +18,7 @@ const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 // const endOfMonthDate = endOfMonth.toLocaleDateString(undefined, options);
 
 // Calculate the dates in between
-const dates = [];
+const dates: { name: Date; value: number }[] = [];
 let currentDate = today;
 
 while (currentDate <= endOfMonth) {
@@ -62,7 +62,7 @@ const dateStyle = {
   boxShadow: "rgba(0, 0, 0, 0.57) 2px 2px 2px 0px",
 };
 
-const TimeSlot = (props) => {
+const TimeSlot = (props: any) => {
   const dispatch = useDispatch();
 
   const [dateTime, setDateTime] = useState({
@@ -72,11 +72,11 @@ const TimeSlot = (props) => {
 
   const [hidden, setHidden] = useState(false);
   const [timeValue, setTimeValue] = useState(""); //set time value controlled radio
-  const [dateValue, setDateValue] = useState(); //set date value for controlled radio
+  const [dateValue, setDateValue] = useState<any>(); //set date value for controlled radio
 
-  const navRef = useRef(null);
+  const navRef = useRef<HTMLDivElement | null>(null);
 
-  const handleNav = (direction) => {
+  const handleNav = (direction: string) => {
     if (navRef.current) {
       if (direction === "left") {
         navRef.current.scrollLeft -= 200;
@@ -86,7 +86,9 @@ const TimeSlot = (props) => {
     }
   };
 
-  const handleClick = (e, names) => {
+  const handleClick = (e:any, names: string) => {
+    console.log(e);
+    
     const value = e.target.textContent;
     const name = names;
     console.log(e);
@@ -105,13 +107,23 @@ const TimeSlot = (props) => {
     if (dateTime.date !== "" && dateTime.time !== "") {
       setTimeout(() => {
         // create client side message of date and time
-        const userMessage = createClientMessage(
-          `${dateTime.date} ${dateTime.time}`
-        );
-        props.setState((prev) => ({
+        const userMessage: {
+          loading?: boolean | undefined;
+          widget?: string | undefined;
+          delay?: number | undefined;
+          payload?: any;
+          message: string;
+          type: string;
+          id: number;
+        } = createClientMessage(`${dateTime.date} ${dateTime.time}`,{});
+
+
+        props.setState((prev: { messages: any }) => ({
           ...prev,
           messages: [...prev.messages, userMessage],
         }));
+
+        console.log(userMessage);
 
         //dispatch date and time as string
 
@@ -136,7 +148,7 @@ const TimeSlot = (props) => {
               style={{ overflow: "hidden", whiteSpace: "nowrap" }}
               ref={navRef}
             >
-              {dates.map((date, idx) => {
+              {dates.map((date) => {
                 return (
                   <ToggleButton
                     key={date.name.toLocaleDateString(undefined, options)}

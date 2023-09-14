@@ -44,23 +44,23 @@ const Config = {
   widgets: [
     {
       widgetName: "gotit",
-      widgetFunc: (props) => <Gotit {...props} />,
+      widgetFunc: (props:any) => <Gotit {...props} />,
     },
     {
       widgetName: "SlotTime",
-      widgetFunc: (props) => <TimeSlot {...props} />,
+      widgetFunc: (props:any) => <TimeSlot {...props} />,
     },
     {
       widgetName: "inputName",
-      widgetFunc: (props) => <NameInput {...props} />,
+      widgetFunc: (props:any) => <NameInput {...props} />,
     },
     {
       widgetName: "selectAge",
-      widgetFunc: (props) => <AgeSelect {...props} />,
+      widgetFunc: (props:any) => <AgeSelect {...props} />,
     },
     {
       widgetName: "thankyou",
-      widgetFunc: (props) => <ThankYou {...props} />,
+      widgetFunc: (props:any) => <ThankYou {...props} />,
     },
   ],
 };
